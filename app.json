@@ -1,0 +1,17 @@
+{
+  "name": "insta-boty",
+  "description": "A Instagram Python bot, which works on making more followers",
+  "image": "heroku/python",
+  "repository": "https://github.com/gothraven/instabot.py",
+  "keywords": ["python", "insta", "bot" ],
+  "env": {
+  },
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "",
+        "test": ""
+      }
+    }
+  }
+}
