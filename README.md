@@ -43,7 +43,7 @@ Depending on your operating system and python installation, you might need to us
 | end\_at\_h           | int | End program at the hour                              | 23   |
 | end\_at\_m           | int | End program at the min                               | 59   |
 | database\_name       | str | change the name of database file to use multiple account | "follows\_db.db"   |
-| session\_file        | str | change the name of session file so to avoid having to login every time | "username.session"   |
+| session\_file        | str | change the name of session file so to avoid having to login every time. Set False to disable. | "username.session"   |
 | like_per_day         | int | Number of photos to like per day (over 1000 may cause throttling) | 1000 |
 | media_max_like       | int | Maximum number of likes on photos to like (set to 0 to disable) | 0    |
 | media_min_like       | int | Minimum number of likes on photos to like (set to 0 to disable) | 0    |
@@ -54,11 +54,13 @@ Depending on your operating system and python installation, you might need to us
 | follow_time_enabled  | bool| Whether to wait seconds set in follow_time before unfollowing | True |
 | unfollow_per_day     | int | Users to unfollow per day                            | 0    |
 | unfollow_recent_feed | bool| If enabled, will populate database with users from recent feed and unfollow if they meet the conditions. Disable if you only want the bot to unfollow people it has previously followed. | True |
+| unlike_per_day     | int | Number of media to unlike that the bot has previously liked. Set to 0 to disable.                           | 0    |
+| time_till_unlike     | int | How long to wait after liking media before unliking them. | 3 * 24 * 60 * 60 (3 days) |
 | comments_per_day     | int | Comments to post per day                             | 0    |
 | comment_list         | [[str]] | List of word lists for comment generation        | [['this', 'your'], ['photo', 'picture', 'pic', 'shot'], ['is', 'looks', 'is really'], ['great', 'super', 'good'], ['.', '...', '!', '!!']] |
 | tag_list             | [str] | Tags to use for finding posts by hasthag or location(l:locationid from e.g. https://www.instagram.com/explore/locations/212999109/los-angeles-california/)                     | ['cat', 'car', 'dog', 'l:212999109'] |
 | tag_blacklist        | [str] | Tags to ignore when liking posts                   | [] |
-| user_blacklist       | {str: str} | Users whose posts to ignore                   | {} |
+| user_blacklist       | {str: str} | Users whose posts to ignore. Example: `{"username": "", "username2": ""}` type only the key and leave value empty -- it will be populated with userids on startup.                | {} |
 | max_like_for_one_tag | int | How many media of a given tag to like at once (out of 21) | 5 |
 | unfollow_break_min   | int | Minimum seconds to break between unfollows           | 15 |
 | unfollow_break_max   | int | Maximum seconds to break between unfollows           | 30 |
