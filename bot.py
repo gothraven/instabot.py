@@ -12,27 +12,41 @@ from src.unfollow_protocol import unfollow_protocol
 bot = InstaBot(
     login=os.environ.get('INSTA_USER', ''),
     password=os.environ.get('INSTA_PASSWORD', ''),
-    start_at_h=9,
+    start_at_h=8,
     start_at_m=0,
-    end_at_h=20,
+    end_at_h=23,
     end_at_m=0,
-    like_per_day=2000,
-    comments_per_day=1000,
+    like_per_day=1000,
+    comments_per_day=500,
     tag_list=[
-        'fuckology', 'fuckologyquotes', 'quotes', 'follow', 'morningvibes', 'morning', 'goodmorning',
-        'photography', 'love', 'instagood', 'morningmotivation', 'sunrise', 'sky', 'photooftheday', 'happy',
-        'picoftheday', 'goodvibes', 'naturephotography', 'like', 'sun', 'indiea', 'lifestyle', 'mornings',
-        'travel', 'ig', 'tea', 'photo', 'positivevibes', 'bhfyp', 'fucklove', 'comments', 'creativity',
-        'bestoftheday', 'follow', 'fun', 'funny', 'cool', 'amazing', 'awesome', 'friends', 'quote', 'quotes',
-        'comment', 'word', 'fuckology', 'fuckologyquotes', 'fuckology', 'quotes', 'motivation', 'follow',
-        'inspiration', 'instagood', 'quoteoftheday', 'poetry', 'motivationalquotes', 'lifequotes', 'inspirationalquotes',
-        'quotestoliveby', 'parisien', 'parisienne', 'paris', 'igparis', 'igersparis', 'lavieestbelle', 'fitfrenchies',
-        'celibataire', 'impatience', 'parisjetaime', 'parismonamour', 'igfrance', 'bordeaux', 'lyon', 'bleublancrouge',
-        'allezlesbleus', 'allezlesbleues', 'equipedefrance', 'naturel'
+        'l:212999109', #Los Angeles
+        'l:6889842', #Paris
+        'l:219370504', #Algers
+        'l:213326726', #Warsaw
+        'l:213385402', #London
+        'change', 'lavieestbelle', 'doglover', 'tweegram', 'nature', 'cool', 'cat', 'cutie', 'onedirection', 'black',
+        'igparis', 'igersparis', 'fuckology', 'red', 'music', 'inspiration', 'dogsofinstagram', 'bestoftheday',
+        'white', 'goodmorning', 'instagramhub', 'school', 'green', 'nofilter', 'iphonesia', 'petsagram',
+        'celibataire', 'doglovers', 'girl', 'pretty', 'travel', 'halloween', 'bored', 'adorable', 'precious',
+        'motivationalquotes', 'equipedefrance', 'clouds', 'puppies', 'ilovedog', 'hair', 'summer', 'blue',
+        'awesome', 'petstagram', 'night', 'versagram', 'dogoftheday', 'quotestoliveby', 'picpets', 'instagramers',
+        'party', 'animals', 'yum', 'dogs', 'igers', 'iphoneonly', 'positivevibes', 'lyon', 'amazing', 'photo',
+        'cute', 'love', 'puppy', 'parisienne', 'pet', 'parisien', 'food', 'bleublancrouge', 'sweet', 'lifequotes',
+        'comment', 'girls', 'repost', 'fuckologyquotes', 'animal', 'parisjetaime', 'family', 'naturephotography',
+        'morningmotivation', 'goodvibes', 'quote', 'igdaily', 'ilovemydog', 'morningvibes', 'quoteoftheday',
+        'lol', 'word', 'friends', 'bestfriend', 'beautiful', 'igaddict', 'instadaily', 'pets', 'indiea',
+        'instamood', 'sun', 'swag', 'life', 'mornings', 'instagood', 'allezlesbleus', 'throwbackthursday',
+        'sunrise', 'me', 'parismonamour', 'poetry', 'funny', 'instagramdogs', 'harrystyles', 'baby', 'happy',
+        'igfrance', 'all_shots', 'fashion', 'ilovedogs', 'ig', 'follow', 'bordeaux', 'smile', 'tagblender',
+        'creativity', 'allezlesbleues', 'lifestyle', 'sunset', 'photooftheday', 'followback', 'photography',
+        'pink', 'inspirationalquotes', 'instahub', 'jj', 'picstitch', 'like', 'dog', 'comments', 'followme',
+        'doggy', 'instalove', 'eyes', 'motivation', 'impatience', 'hot', 'picoftheday', 'tail', 'tea', 'my',
+        'yummy', 'fucklove', 'fitfrenchies', 'tbt', 'instago', 'naturel', 'quotes', 'morning', 'beach', 'art',
+        'jj_forum', 'paris', 'sky', 'pup', 'dogstagram', 'fun', 'bhfyp',
     ],
     tag_blacklist=[],
     user_blacklist={},
-    max_like_for_one_tag=27,
+    max_like_for_one_tag=10,
     follow_per_day=0, #follow_per_day = 500
     follow_time=0, #follow_time=1 * 60 * 60,
     unfollow_per_day=0, #unfollow_per_day=300
