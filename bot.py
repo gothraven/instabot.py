@@ -11,8 +11,8 @@ bot = InstaBot(
     start_at_m=0,
     end_at_h=23,
     end_at_m=0,
-    like_per_day=1000,
-    comments_per_day=500,
+    like_per_day=800,
+    comments_per_day=200,
     tag_list=[
         'l:212999109', #Los Angeles
         'l:6889842', #Paris
