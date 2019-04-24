@@ -268,7 +268,7 @@ class InstaBot:
             fake_ua = random.sample(list_of_ua, 1)
             self.user_agent = check_and_insert_user_agent(self, str(fake_ua[0]))
 
-        self.current_version = 1_553_611_447
+        self.current_version = 1556087528
 
         self.bot_start = datetime.datetime.now()
         self.bot_start_ts = time.time()
@@ -285,12 +285,12 @@ class InstaBot:
         self.instaloader = instaloader.Instaloader()
 
         # Unfollow Criteria & Options
-        self.unfollow_recent_feed = unfollow_recent_feed
-        self.unfollow_not_following = unfollow_not_following
-        self.unfollow_inactive = unfollow_inactive
-        self.unfollow_probably_fake = unfollow_probably_fake
-        self.unfollow_selebgram = unfollow_selebgram
-        self.unfollow_everyone = unfollow_everyone
+        self.unfollow_recent_feed = str(unfollow_recent_feed) == "True"
+        self.unfollow_not_following = str(unfollow_not_following) == "True"
+        self.unfollow_inactive = str(unfollow_inactive) == "True"
+        self.unfollow_probably_fake = str(unfollow_probably_fake) == "True"
+        self.unfollow_selebgram = str(unfollow_selebgram) == "True"
+        self.unfollow_everyone = str(unfollow_everyone) == "True"
 
         self.time_in_day = 24 * 60 * 60
         # Like
@@ -306,7 +306,7 @@ class InstaBot:
 
         # Follow
         self.follow_time = follow_time  # Cannot be zero
-        self.follow_time_enabled = follow_time_enabled
+        self.follow_time_enabled = str(follow_time_enabled) == "True"
         self.follow_per_day = follow_per_day
         if self.follow_per_day != 0:
             self.follow_delay = self.time_in_day / self.follow_per_day
@@ -1044,7 +1044,7 @@ class InstaBot:
             # distance between end time and now
             dne = self.time_dist(datetime.time(self.end_at_h,
                                                self.end_at_m),
-                                 now.time()) 
+                                 now.time())
             if (dns == 0 or dne < dns) and dne != 0:
                 # ------------------- Get media_id -------------------
                 if len(self.media_by_tag) == 0:
