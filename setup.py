@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 try:
     here = os.path.abspath(os.path.dirname(__file__))
-    README = open(os.path.join(here, "README.md")).read()
+    README = open(os.path.join(here, "README.md"), encoding="utf-8").read()
     with open(os.path.join(here, "requirements/base.txt"), encoding="utf-8") as f:
         required = [l.strip("\n") for l in f if l.strip("\n") and not l.startswith("#")]
 except IOError:
@@ -21,7 +21,8 @@ Building python Wheels:
 setup(
     name="instabot-py",
     packages=find_packages(),
-    version="0.4.7",
+    version="0.4.9",
+    python_requires=">3.6.1",
     license="MIT",
     description="Instagram Python Bot",
     long_description=README,
@@ -41,5 +42,6 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
     ],
 )
