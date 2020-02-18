@@ -108,7 +108,6 @@ ENV/
 # IDEs
 .idea/
 *.iml
-*.ini
 *.db
 *.session
 DS/

@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime, timedelta
 
 from sqlalchemy import Column, Integer, String, DateTime
@@ -31,11 +32,13 @@ class Media(Base):
 class Persistence(PersistenceBase):
 
     def __init__(self, connection_string):
+        self.logger = logging.getLogger(self.__class__.__name__)
         self._engine = create_engine(connection_string, echo=False)
         Base.metadata.create_all(self._engine)
 
         self._Session = sessionmaker(bind=self._engine)
         self._session = self._Session()
+        self.logger.debug("Init SQL Perisitence {}".format(connection_string))
 
     def check_already_liked(self, media_id):
         """ controls if media already liked before """
@@ -44,7 +47,7 @@ class Persistence(PersistenceBase):
                    .one_or_none() is not None
 
     def check_already_followed(self, user_id):
-        """ controls if user already followed before """
+        """ controls if user was already followed before """
         return self._session.query(Follower) \
                    .filter(Follower.id == user_id) \
                    .one_or_none() is not None
@@ -64,21 +67,39 @@ class Persistence(PersistenceBase):
 
     def insert_username(self, user_id, username):
         """ insert user_id to usernames """
-        follower = Follower(id=user_id, username=username, created=datetime.now(), last_followed=datetime.now())
+        follower = Follower(id=user_id, username=username,
+                            created=datetime.now(),
+                            last_followed=datetime.now())
         self._session.add(follower)
         self._session.commit()
 
     def insert_unfollow_count(self, user_id=None, username=None):
         """ track unfollow count for new futures """
-
         if user_id:
-            follower = self._session.query(Follower).filter(Follower.id == user_id).first()
+            follower = self._session.query(Follower).filter(Follower.id ==
+                                                            user_id).first()
         elif username:
-            follower = self._session.query(Follower).filter(Follower.username == username).first()
+            follower = self._session.query(Follower).filter(Follower.username ==
+                                                            username).first()
         else:
             return
 
         follower.unfollow_count += 1
+        self._session.commit()
+
+    def update_follow_time(self, user_id=None, username=None):
+        """ update follow_time for unfollow whitelist and user still follows
+         you cases"""
+        if user_id:
+            follower = self._session.query(Follower).filter(Follower.id ==
+                                                            user_id).first()
+        elif username:
+            follower = self._session.query(Follower).filter(Follower.username ==
+                                                            username).first()
+        else:
+            return
+
+        follower.last_followed = datetime.now()
         self._session.commit()
 
     def get_username_random(self):
@@ -86,12 +107,32 @@ class Persistence(PersistenceBase):
         follower = self._session.query(Follower).filter(Follower.unfollow_count == 0).order_by(func.random()).first()
         return str(follower.username) if follower else None
 
-    def get_username_to_unfollow_random(self):
-        """ Gets random username that is older than follow_time and has zero unfollow_count """
+    def get_follower_to_like_random(self):
+        """ Gets random follower who was created earlier than 2 * follow_time
+        and has zero unfollow_count """
         now_time = datetime.now()
-        cut_off_time = now_time - timedelta(seconds=self.bot.follow_time)
+        if self.bot.follow_time > 0:
+            cut_off_time = now_time - \
+                           timedelta(seconds=self.bot.follow_time) - \
+                           timedelta(seconds=self.bot.follow_time)
+        else:
+            cut_off_time = now_time
+        return self._session.query(Follower) \
+            .filter(Follower.created < cut_off_time) \
+            .filter(Follower.unfollow_count == 0) \
+            .order_by(func.random()).first()
+
+    def get_username_to_unfollow_random(self):
+        """ Gets random username that is older than follow_time and has zero
+        unfollow_count """
+        now_time = datetime.now()
+        if self.bot.follow_time > 0:
+            cut_off_time = now_time - timedelta(seconds=self.bot.follow_time)
+        else:
+            cut_off_time = now_time
         return self._session.query(Follower) \
             .filter(Follower.last_followed < cut_off_time) \
+            .filter(Follower.unfollow_count == 0) \
             .order_by(func.random()).first()
 
     def get_username_row_count(self):
